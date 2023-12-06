@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header th:insert="header.html"></header>
+
+<form action="#" th:action="@{/exam}" method="post">
+    <label>
+        Предмет:
+        <select size="1" th:field="*{exam.subject}">
+            <option value="">--</option>
+            <option th:each="subject : ${subjects}"
+                    th:value="${subject}"
+                    th:utext="${subject}"></option>
+        </select>
+    </label>
+    <p>Балл: <input type="number" th:field="*{exam.score}" min="0" max="100"/></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+<footer th:insert="footer.html"></footer>
+</body>
+</html>
