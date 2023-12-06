@@ -15,15 +15,20 @@ import java.util.Optional;
 public class ExamDBDao implements Dao<ExamEntity> {
     H2Connection h2Connection;
 
-    public ExamDBDao() throws SQLException {
+    public ExamDBDao() throws SQLException, ClassNotFoundException {
         h2Connection = H2Connection.getH2Connection();
         Statement statement = h2Connection.getConnection().createStatement();
-        String s = "CREATE TABLE IF NOT EXISTS EXAM" +
-                "(subject number primary key not null," +
-                " score date not null, " +
-                " idEnrollee varchar(30) not null );" +
-                "INSERT INTO EXAM (subject, score, idEnrollee)\n" +
-                "VALUES ('Математика', 78, 1);";
+
+        String s = "CREATE TABLE IF NOT EXISTS EXAM " +
+                "(idEnrollee INT NOT NULL, " +
+                " score INT NOT NULL, " +
+                " subject VARCHAR(30) NOT NULL, " +
+                " CONSTRAINT FK_idEnrollee FOREIGN KEY (idEnrollee) REFERENCES ENROLLEE(id));";
+
+        statement.execute(s);
+
+        // Добавление данных
+        s = "INSERT INTO EXAM (subject, score, idEnrollee) VALUES ('Математика', 78, 0);";
         statement.execute(s);
         s = "INSERT INTO EXAM (subject, score, idEnrollee)\n" +
                 "VALUES ('Русский язык', 94, 1);";
@@ -36,6 +41,7 @@ public class ExamDBDao implements Dao<ExamEntity> {
         statement.execute(s);
         statement.close();
     }
+
 
     public int size() {
         try {
@@ -88,7 +94,7 @@ public class ExamDBDao implements Dao<ExamEntity> {
                     getConnection().
                     createStatement();
             ResultSet resultSet = statement.
-                    executeQuery("select * from ENROLLEE");
+                    executeQuery("select * from EXAM");
             while (resultSet.next()) {
                 ExamEntity examEntity = new ExamEntity();
                 examEntity.setIdEnrollee(resultSet.getInt("idEnrollee"));
@@ -110,7 +116,7 @@ public class ExamDBDao implements Dao<ExamEntity> {
             Statement statement = h2Connection.
                     getConnection().
                     createStatement();
-            String s = String.format("insert into EXAM (subject, score, idEnrollee) values (%s, %s, %s)",
+            String s = String.format("insert into EXAM (subject, score, idEnrollee) values ('%s', %s, %s)",
                     examEntity.getSubject(), examEntity.getScore(), examEntity.getIdEnrollee());
             statement.execute(s);
             statement.close();

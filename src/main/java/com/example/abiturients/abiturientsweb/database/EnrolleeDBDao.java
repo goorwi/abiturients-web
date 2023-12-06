@@ -14,7 +14,7 @@ import java.util.Optional;
 public class EnrolleeDBDao implements Dao<EnrolleeEntity> {
     private H2Connection h2Connection;
 
-    public EnrolleeDBDao() throws SQLException {
+    public EnrolleeDBDao() throws SQLException, ClassNotFoundException {
         h2Connection = H2Connection.getH2Connection();
         Statement statement = h2Connection.getConnection().createStatement();
         String s = "CREATE TABLE IF NOT EXISTS ENROLLEE" +
@@ -94,7 +94,7 @@ public class EnrolleeDBDao implements Dao<EnrolleeEntity> {
                 String fullName = resultSet.getString("fullName");
                 Date birthday = resultSet.getDate("birthday");
                 EnrolleeEntity enrolleeEntity = new EnrolleeEntity();
-                enrolleeEntity.setId(Integer.getInteger(id.toString()));
+                enrolleeEntity.setId(id.intValue());
                 enrolleeEntity.setFullName(fullName);
                 enrolleeEntity.setBirthday(birthday);
                 enrolleeEntities.add(enrolleeEntity);
@@ -113,7 +113,7 @@ public class EnrolleeDBDao implements Dao<EnrolleeEntity> {
             Statement statement = h2Connection.
                     getConnection().
                     createStatement();
-            String s = String.format("insert into ENROLLEE (id, birthday, fullName) values (%s, %s, %s)",
+            String s = String.format("insert into ENROLLEE values (%s, '%s', '%s')",
                     enrollee.getId(), enrollee.getBirthday(), enrollee.getFullName());
             statement.execute(s);
             statement.close();

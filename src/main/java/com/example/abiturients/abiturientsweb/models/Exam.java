@@ -1,5 +1,6 @@
 package com.example.abiturients.abiturientsweb.models;
 
+import com.example.abiturients.abiturientsweb.entity.ExamEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,11 @@ public class Exam {
     private Integer score;
     private Integer idEnrollee;
 
+    public Exam(ExamEntity exam) {
+        setSubject(exam.getSubject());
+        setScore(exam.getScore());
+        setIdEnrollee(exam.getIdEnrollee());
+    }
     public boolean notNull() {
         return subject != null && score != null;
     }

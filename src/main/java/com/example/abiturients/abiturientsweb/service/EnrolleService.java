@@ -19,7 +19,7 @@ public class EnrolleService {
     }
 
     public List<Enrollee> getAllEnrolles() {
-        return enrolleeDao.getAll();
+        return enrolleeDao.getAll().stream().map(x -> new Enrollee((EnrolleeEntity) x)).toList();
     }
 
     public Enrollee getEnrollee (long id) {
@@ -31,11 +31,5 @@ public class EnrolleService {
         EnrolleeEntity enrolleeEntity = new EnrolleeEntity(enrollee);
         enrolleeDao.save(enrolleeEntity);
     }
-    public List<Enrollee> getEnrolles(List<EnrolleeEntity> enrolleeEntitys) {
-        List<Enrollee> enrollees = new ArrayList<>();
-        for (EnrolleeEntity enrolleeEntity: enrolleeEntitys) {
-            enrollees.add(new Enrollee(enrolleeEntity));
-        }
-        return enrollees;
-    }
+
 }

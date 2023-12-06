@@ -9,6 +9,8 @@ import com.example.abiturients.abiturientsweb.models.Exam;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 public class ExamService {
     private Dao examDao;
 
@@ -16,28 +18,24 @@ public class ExamService {
         this.examDao = examDao;
     }
 
-    public long sizeEnrollees() {
+    public long sizeExams() {
         return examDao.size();
     }
 
-    public List<Enrollee> getAllEnrolles() {
-        return examDao.getAll();
+    public List<Exam> getAllExams() {
+        return examDao.getAll().stream().map(x -> new Exam((ExamEntity) x)).toList();
     }
 
-    public Enrollee getEnrollee (long id) {
-        return new Enrollee((EnrolleeEntity) examDao.get(id).get());
+    public List<Exam> getExamsByEnrolleeId(int idEnrollee) {
+        List<Exam> examList;
+        examList = getAllExams().stream().filter(x -> x.getIdEnrollee() == idEnrollee).toList();
+        return examList;
     }
 
     public void save(Exam exam) {
-        exam.setIdEnrollee(examDao.size());
+        exam.setIdEnrollee(exam.getIdEnrollee());
         ExamEntity examEntity = new ExamEntity(exam);
         examDao.save(examEntity);
     }
-    public List<Enrollee> getEnrolles(List<EnrolleeEntity> enrolleeEntitys) {
-        List<Enrollee> enrollees = new ArrayList<>();
-        for (EnrolleeEntity enrolleeEntity: enrolleeEntitys) {
-            enrollees.add(new Enrollee(enrolleeEntity));
-        }
-        return enrollees;
-    }
+
 }
