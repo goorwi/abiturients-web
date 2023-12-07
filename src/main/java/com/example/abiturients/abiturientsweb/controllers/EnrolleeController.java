@@ -123,6 +123,7 @@ public class EnrolleeController {
         model.addAttribute("enrollees", enrollees);
         return "enrollees";
     }
+
     @GetMapping("/enrollee/{id}")
     public String enrollee(@PathVariable int id, Model model) {
         Enrollee enrollee = enrolleBDService.getAllEnrolles().get(id);

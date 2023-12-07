@@ -1,19 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 <head>
-    <title th:text="${title}"/>
+    <title th:text="${title}">Добавление абитуриента</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        /* Общий стиль для body */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            overflow-y: scroll; /* Разрешить вертикальный скролл */
+        }
+
+        /* Стиль для всех форм */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Стиль для меток в формах */
+        label {
+            font-weight: bold;
+        }
+
+        /* Стиль для полей ввода */
+        input {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        /* Стиль для поля ID */
+        .id {
+            font-weight: bold;
+        }
+
+        /* Стиль для всех кнопок в формах */
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Hover-стиль для кнопок в формах */
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
+<!-- Header -->
 <header th:insert="header.html"></header>
+
+<!-- Enrollee Form -->
 <form action="#" th:action="@{/add}" th:object="${enrollee}" method="post">
-    <p th:text="'Id: '+${number}"/>
-    <p>ФИО: <input type="text" th:field="*{fullName}" /></p>
-    <p>Дата рождения: <input type="date" th:field="*{birthday}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <p th:text="'Id: ' + ${number}" class="id"/>
+    <p>
+        <label for="fullName">ФИО:</label>
+        <input type="text" id="fullName" th:field="*{fullName}" />
+    </p>
+    <p>
+        <label for="birthday">Дата рождения:</label>
+        <input type="date" id="birthday" th:field="*{birthday}" />
+    </p>
+    <p>
+        <input type="submit" value="Добавить" />
+        <input type="reset" value="Очистить" />
+    </p>
 </form>
+
+<!-- Footer -->
 <footer th:insert="footer.html"></footer>
 </body>
 </html>

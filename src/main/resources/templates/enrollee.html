@@ -1,30 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<head>
-    <title th:text="${title}"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body>
-<header th:insert="header.html"></header>
-<h4> Список абитуриентов </h4>
-<p th:text="'ID: ' + ${enrollee.getId()}"/>
-<p th:text="'Абитуриент: ' + ${enrollee.getFullName()}"/>
-<p th:text="'Дата рождения: ' + ${enrollee.getDrString()}"/>
-<table th:if="${exams}!= null" class="table">
-    <tr>
-        <th>Экзамен</th>
-        <th>Балл</th>
-        <th>Проход</th>
-    </tr>
-    <tr th:each="exam : ${exams}">
-        <td th:text="${exam.subject}">Label</td>
-        <td th:text="${exam.score}">90</td>
-        <td th:text="${exam.score>80}? ${true} : ${false}">yes</td>
-    </tr>
-</table>
 
+<head>
+    <title th:text="${title}">Информация об абитуриенте</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        /* Общий стиль для body */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            overflow-y: scroll; /* Разрешить вертикальный скролл */
+        }
+
+        /* Стиль для всех форм */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Стиль для меток в формах */
+        label {
+            font-weight: bold;
+        }
+
+        h4 {
+            margin-top: 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<header th:insert="header.html"></header>
+
+<div class="container">
+    <!-- Enrollee Information -->
+    <h4>Список абитуриентов</h4>
+    <p th:text="'ID: ' + ${enrollee.getId()}"></p>
+    <p th:text="'Абитуриент: ' + ${enrollee.getFullName()}"></p>
+    <p th:text="'Дата рождения: ' + ${enrollee.getDrString()}"></p>
+
+    <!-- Exams Table -->
+    <table th:if="${exams} != null">
+        <thead>
+        <tr>
+            <th>Экзамен</th>
+            <th>Балл</th>
+            <th>Проход</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.subject}">Label</td>
+            <td th:text="${exam.score}">90</td>
+            <td th:text="${exam.score > 80} ? 'Да' : 'Нет'">yes</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer -->
 <footer th:insert="footer.html"></footer>
 </body>
+
 </html>

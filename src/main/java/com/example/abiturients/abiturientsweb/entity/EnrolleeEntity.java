@@ -7,8 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Getter
@@ -29,8 +32,11 @@ public class EnrolleeEntity {
     private String fullName;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "BIRTHDAY", nullable = false)
     private Date birthday;
+
+    private String stringBirthday;
 
     public EnrolleeEntity(Enrollee enrollee) {
         setId(enrollee.getId());
@@ -39,7 +45,7 @@ public class EnrolleeEntity {
     }
 
     private Date transformDate(java.util.Date date) {
-        return new Date(date.getYear(),date.getMonth(),date.getDay());
+        return new Date(date.getYear(), date.getMonth(), date.getDay());
     }
 }
 
