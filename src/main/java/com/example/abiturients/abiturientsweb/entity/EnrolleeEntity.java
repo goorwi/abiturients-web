@@ -9,7 +9,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -31,21 +31,19 @@ public class EnrolleeEntity {
     @Column(name = "FULLNAME", length = 64, nullable = false)
     private String fullName;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    //@Temporal(TemporalType.DATE)
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "BIRTHDAY", nullable = false)
     private Date birthday;
 
-    private String stringBirthday;
-
     public EnrolleeEntity(Enrollee enrollee) {
         setId(enrollee.getId());
-        setBirthday(transformDate(enrollee.getBirthday()));
+        setBirthday(enrollee.getBirthday());
         setFullName(enrollee.getFullName());
     }
 
     private Date transformDate(java.util.Date date) {
-        return new Date(date.getYear(), date.getMonth(), date.getDay());
+        return new java.sql.Date(date.getYear(), date.getMonth(), date.getDay());
     }
 }
 

@@ -14,7 +14,7 @@
         body {
             background-color: #f8f9fa;
             margin: 0;
-            overflow-y: scroll; /* Разрешить вертикальный скролл */
+             /* Разрешить вертикальный скролл */
         }
 
         /* Стиль для всех форм */
@@ -26,6 +26,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
+
         }
 
         /* Стиль для меток в формах */
@@ -37,14 +38,15 @@
         .enrollees-list {
             list-style: none;
             padding: 0;
-            margin-top: 20px;
+            margin-top: 10px;
             margin-left: 15px;
-            margin-bottom: 30px; /* Новый отступ между списком и кнопкой */
+            margin-bottom: 10px; /* Новый отступ между списком и кнопкой */
+            overflow-y: auto;
         }
 
         /* Стиль для каждого элемента списка абитуриентов */
         .enrollees-list li {
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             background-color: #fff;
             padding: 15px;
             border-radius: 8px;
@@ -100,7 +102,7 @@
 <!-- Enrollees List -->
 <ul th:each="enrollee : ${enrollees}" class="enrollees-list">
     <li>
-        <a th:text="${enrollee.id} + ' ' + ${enrollee.fullName}"
+        <a th:text="${enrollee.id} + '. ' + ${enrollee.fullName}"
            th:href="@{/enrollee/{id}(id=${enrollee.getId()})}">
             Enrollee: ${enrollee.fullName}
         </a>

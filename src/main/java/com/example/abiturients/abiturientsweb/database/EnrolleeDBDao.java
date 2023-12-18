@@ -18,7 +18,7 @@ public class EnrolleeDBDao implements Dao<EnrolleeEntity> {
         String s = "CREATE TABLE IF NOT EXISTS ENROLLEE" +
                 "(id number primary key not null," +
                 " birthday date not null, " +
-                " fullName varchar(30) not null );" +
+                " fullName varchar(100) not null );" +
                 "INSERT INTO ENROLLEE (id, birthday, fullName)\n" +
                 "VALUES (0, '2003-03-23', 'Иванов Иван Иванович');";
         statement.execute(s);
@@ -112,7 +112,7 @@ public class EnrolleeDBDao implements Dao<EnrolleeEntity> {
                     getConnection().
                     createStatement();
             String s = String.format("insert into ENROLLEE values (%s, '%s', '%s')",
-                    enrollee.getId(), enrollee.getBirthday(), enrollee.getFullName());
+                    enrollee.getId(), new java.sql.Date(enrollee.getBirthday().getTime()), enrollee.getFullName());
             statement.execute(s);
             statement.close();
         } catch (SQLException e) {

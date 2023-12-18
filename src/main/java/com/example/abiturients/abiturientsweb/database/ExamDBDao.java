@@ -22,7 +22,7 @@ public class ExamDBDao implements Dao<ExamEntity> {
         String s = "CREATE TABLE IF NOT EXISTS EXAM " +
                 "(idEnrollee INT NOT NULL, " +
                 " score INT NOT NULL, " +
-                " subject VARCHAR(30) NOT NULL, " +
+                " subject VARCHAR(100) NOT NULL, " +
                 " CONSTRAINT FK_idEnrollee FOREIGN KEY (idEnrollee) REFERENCES ENROLLEE(id));";
 
         statement.execute(s);

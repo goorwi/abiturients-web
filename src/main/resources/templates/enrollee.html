@@ -73,10 +73,10 @@
 
 <div class="container">
     <!-- Enrollee Information -->
-    <h4>Список абитуриентов</h4>
+    <h4>Информация об абитуриенте</h4>
     <p th:text="'ID: ' + ${enrollee.getId()}"></p>
     <p th:text="'Абитуриент: ' + ${enrollee.getFullName()}"></p>
-    <p th:text="'Дата рождения: ' + ${enrollee.getDrString()}"></p>
+    <p th:text="'Дата рождения: ' + ${enrollee.getFormattedBirthday()}"></p>
 
     <!-- Exams Table -->
     <table th:if="${exams} != null">

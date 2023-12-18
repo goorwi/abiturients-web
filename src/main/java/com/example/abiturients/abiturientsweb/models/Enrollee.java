@@ -29,6 +29,11 @@ public class Enrollee {
         setFullName(enrollee.getFullName());
     }
 
+    public String getFormattedBirthday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(birthday);
+    }
+
     public String getDrString() {
         return birthday.getDay() + "." + birthday.getMonth() + "." + birthday.getYear();
     }
